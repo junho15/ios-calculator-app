@@ -101,41 +101,41 @@
 
 - 가독성
     * if 문의 조건으로 Bool 타입의 상수를 사용하면, 상수의 이름으로 어떤 조건인지 이해하기 쉬움.
-~~~swift
-    // 수정 전
-    var inputRemovedNegativeSignal: String = input
-    if input.hasPrefix("-") {
-        inputRemovedNegativeSignal.removeFirst()
-    }
+   ~~~swift
+       // 수정 전
+       var inputRemovedNegativeSignal: String = input
+       if input.hasPrefix("-") {
+           inputRemovedNegativeSignal.removeFirst()
+       }
 
-    // 수정 후 ( 조건에 상수 사용 )
-    var inputRemovedFirstNegative: String = input
-    let isFirstLetterNegative: Bool = inputRemovedFirstNegative.hasPrefix("-")
-    if isFirstLetterNegative {
-        inputRemovedFirstNegative.removeFirst()
-    }
-~~~
+       // 수정 후 ( 조건에 상수 사용 )
+       var inputRemovedFirstNegative: String = input
+       let isFirstLetterNegative: Bool = inputRemovedFirstNegative.hasPrefix("-")
+       if isFirstLetterNegative {
+           inputRemovedFirstNegative.removeFirst()
+       }
+   ~~~
 
     * 함수 내부의 특정 기능을 분리하여 새로운 함수를 만들고, 그 함수를 호출해서 사용하면 어떤 기능을 하고 있는 지를 이해하기 쉬움.
-~~~swift
-    // 수정 전
-    Operator.allCases.forEach {
-        inputRemovedNegativeSignal = inputRemovedNegativeSignal.replacingOccurrences(of: "\($0.rawValue)-", with: "\($0.rawValue)")
-    }
+   ~~~swift
+       // 수정 전
+       Operator.allCases.forEach {
+           inputRemovedNegativeSignal = inputRemovedNegativeSignal.replacingOccurrences(of: "\($0.rawValue)-", with: "\($0.rawValue)")
+       }
 
-    // 수정 후 ( 기능 분리 )
-    let inputRemovedNegative: String = removeNegative(from: inputRemovedFirstNegative)
-    
-    // 수정 후 ( 기능 분리 )
-    private static func removeNegative(from input: String) -> String {
-        var inputRemovedNegative: String = input
-        Operator.allCases.forEach {
-            inputRemovedNegative = inputRemovedNegative.replacingOccurrences(of: "\($0.rawValue)-", with: "\($0.rawValue)")
-        }
-        return inputRemovedNegative
-    }
+       // 수정 후 ( 기능 분리 )
+       let inputRemovedNegative: String = removeNegative(from: inputRemovedFirstNegative)
 
-~~~
+       // 수정 후 ( 기능 분리 )
+       private static func removeNegative(from input: String) -> String {
+           var inputRemovedNegative: String = input
+           Operator.allCases.forEach {
+               inputRemovedNegative = inputRemovedNegative.replacingOccurrences(of: "\($0.rawValue)-", with: "\($0.rawValue)")
+           }
+           return inputRemovedNegative
+       }
+
+   ~~~
 
 8. 참고 링크
 * [Array append](https://developer.apple.com/documentation/swift/array/append(_:)-1ytnt)
